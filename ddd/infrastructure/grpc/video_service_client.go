@@ -9,7 +9,7 @@ import (
 	"transcode-service/pkg/config"
 	"transcode-service/pkg/grpcutil"
 	"transcode-service/pkg/logger"
-	videopb "video-service/proto/video"
+	videopb "github.com/jiangqiao2/go-video-proto/proto/video/video"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

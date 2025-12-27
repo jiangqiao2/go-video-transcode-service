@@ -2,13 +2,12 @@ module transcode-service
 
 go 1.24.7
 
-toolchain go1.24.9
-
 require (
 	github.com/gin-gonic/gin v1.10.1
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/google/uuid v1.6.0
 	github.com/grafana/pyroscope-go v1.2.7
+	github.com/jiangqiao2/go-video-proto v0.1.1
 	github.com/minio/minio-go/v7 v7.0.95
 	github.com/redis/go-redis/v9 v9.0.5
 	github.com/segmentio/kafka-go v0.4.49
@@ -18,9 +17,6 @@ require (
 	google.golang.org/grpc v1.76.0
 	gorm.io/driver/mysql v1.6.0
 	gorm.io/gorm v1.30.0
-	transcode-service/proto v0.0.0-00010101000000-000000000000
-	upload-service/proto v0.0.0-00010101000000-000000000000
-	video-service/proto v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -87,9 +83,3 @@ require (
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace transcode-service/proto => ./proto
-
-replace upload-service/proto => ../upload-service/proto
-
-replace video-service/proto => ../video-service/proto

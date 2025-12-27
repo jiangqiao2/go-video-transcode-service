@@ -10,9 +10,7 @@ ENV GOPROXY=https://goproxy.cn,direct
 # 配置 Go 代理以提升 go mod 下载速度；如有内网代理可按需替换
 COPY transcode-service/go.mod transcode-service/go.sum ./
 # 仅复制 go.mod/go.sum 以充分利用 Docker 层缓存，加速依赖下载
-COPY transcode-service/proto/ ./proto/
-COPY upload-service/proto/ ../upload-service/proto/
-COPY video-service/proto/ ../video-service/proto/
+# 使用统一的 proto 模块，不再从本地复制 proto
 # 复制各服务的 proto 目录（与 go.mod 中 replace 路径一致），确保本地模块依赖可解析
 RUN go mod download
 # 预拉取依赖，便于后续源码变更仍可复用缓存

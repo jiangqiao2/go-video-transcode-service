@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	transcodepb "transcode-service/proto/transcode"
+	transcodepb "github.com/jiangqiao2/go-video-proto/proto/transcode/transcode"
 
 	"transcode-service/ddd/application/app"
 	"transcode-service/ddd/application/cqe"

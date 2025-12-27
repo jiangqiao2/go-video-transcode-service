@@ -32,7 +32,7 @@ import (
 
 	// 导入资源和模块包以触发init函数
 	_ "transcode-service/internal/resource"
-	transcodepb "transcode-service/proto/transcode"
+	transcodepb "github.com/jiangqiao2/go-video-proto/proto/transcode/transcode"
 )
 
 func Run() {

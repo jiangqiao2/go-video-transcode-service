@@ -169,7 +169,8 @@ func (w *hlsWorkerImpl) processJob(ctx context.Context, job *entity.HLSJobEntity
 		}
 	} else if err := w.hlsService.GenerateHLSSlices(ctx, job, localInput); err != nil {
 		errMsg := truncateError(err.Error(), 480)
-		w.handleFailure(ctx, job, fmt.Errorf(errMsg))
+		// wrap truncated message with a constant format string to avoid vet's non-constant format warning
+		w.handleFailure(ctx, job, fmt.Errorf("%s", errMsg))
 		return
 	}
 
