@@ -3,18 +3,22 @@
 FROM golang:1.24-alpine AS builder
 # 使用 Go Alpine 基础镜像作为构建阶段，体积小、包含所需工具
 WORKDIR /app
+ARG SERVICE_ROOT=.
 # 构建阶段工作目录设为 /app，后续 COPY/BUILD 均基于此
 RUN apk add --no-cache git ca-certificates tzdata
 # 安装构建期依赖：git（拉取依赖）、证书（HTTPS）、时区（日志时间正确）
 ENV GOPROXY=https://goproxy.cn,direct
 # 配置 Go 代理以提升 go mod 下载速度；如有内网代理可按需替换
-COPY transcode-service/go.mod transcode-service/go.sum ./
+# SERVICE_ROOT 用于兼容不同构建上下文：
+# - 在本仓库 CI 中：context 为 .，SERVICE_ROOT 默认为 .
+# - 在上层 services 目录中构建：可传入 SERVICE_ROOT=transcode-service
+COPY ${SERVICE_ROOT}/go.mod ${SERVICE_ROOT}/go.sum ./
 # 仅复制 go.mod/go.sum 以充分利用 Docker 层缓存，加速依赖下载
 # 使用统一的 proto 模块，不再从本地复制 proto
 # 复制各服务的 proto 目录（与 go.mod 中 replace 路径一致），确保本地模块依赖可解析
 RUN go mod download
 # 预拉取依赖，便于后续源码变更仍可复用缓存
-COPY transcode-service/ .
+COPY ${SERVICE_ROOT}/ .
 # 复制业务源码到构建容器（包含 main.go、DDD 目录、配置等）
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o transcode-service .
 # 构建静态二进制（关闭 CGO）以提升可移植性；目标平台为 Linux

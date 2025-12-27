@@ -31,8 +31,8 @@ import (
 	_ "transcode-service/ddd/infrastructure/worker"
 
 	// 导入资源和模块包以触发init函数
-	_ "transcode-service/internal/resource"
 	transcodepb "github.com/jiangqiao2/go-video-proto/proto/transcode/transcode"
+	_ "transcode-service/internal/resource"
 )
 
 func Run() {

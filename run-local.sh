@@ -5,7 +5,7 @@ set -euo pipefail
 # Usage: bash transcode-service/run-local.sh
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+ROOT_DIR="${SCRIPT_DIR}"
 IMAGE_TAG="transcode-service:local"
 CONTAINER_NAME="transcode-service-local"
 

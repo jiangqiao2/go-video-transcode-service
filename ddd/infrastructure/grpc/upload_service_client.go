@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
+	uploadpb "github.com/jiangqiao2/go-video-proto/proto/upload/upload"
 	"transcode-service/pkg/config"
 	"transcode-service/pkg/grpcutil"
 	"transcode-service/pkg/logger"
-	uploadpb "github.com/jiangqiao2/go-video-proto/proto/upload/upload"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

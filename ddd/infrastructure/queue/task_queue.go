@@ -173,14 +173,16 @@ func (q *MemoryTaskQueue) IsClosed() bool {
 	return q.closed
 }
 
-// GetMetrics 获取队列指标
-func (q *MemoryTaskQueue) GetMetrics() QueueMetrics {
-	q.metrics.mu.RLock()
-	defer q.metrics.mu.RUnlock()
+// GetMetrics 获取队列指标（通过指针返回，避免拷贝包含锁的结构体）
+func (q *MemoryTaskQueue) GetMetrics() *QueueMetrics {
+	// 先获取当前队列大小，避免在持有 metrics 锁时再去获取队列锁
+	size := q.Size()
 
-	metrics := *q.metrics
-	metrics.CurrentSize = q.Size()
-	return metrics
+	q.metrics.mu.Lock()
+	defer q.metrics.mu.Unlock()
+
+	q.metrics.CurrentSize = size
+	return q.metrics
 }
 
 // updateEnqueueMetrics 更新入队指标

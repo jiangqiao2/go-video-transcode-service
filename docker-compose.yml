@@ -6,6 +6,8 @@ services:
     build:
       context: ..
       dockerfile: transcode-service/Dockerfile
+      args:
+        SERVICE_ROOT: transcode-service
     container_name: transcode-service
     restart: unless-stopped
     ports:
